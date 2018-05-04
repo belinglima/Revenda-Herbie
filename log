@@ -1,0 +1,10 @@
+ 1003  git add .
+ 1004  git config core.autocrlf false
+ 1005  git add .
+ 1006  git status
+ 1007  echo "# Trabalho avaliativo 2" > readme.md
+ 1008  git status
+ 1009  git add .
+ 1010  git commit
+ 1011  git push -u origin master
+ 1012  history > log
