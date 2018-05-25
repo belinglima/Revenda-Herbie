@@ -8,6 +8,7 @@ use App\Carro;
 use App\Marca;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class CarroController extends Controller
 {
@@ -32,7 +33,7 @@ class CarroController extends Controller
 
                 
         // $dados = Carro::all();
-        $dados = Carro::paginate(3);
+        $dados = Carro::paginate(5);
 
         $soma = Carro::sum('preco');
 
@@ -173,4 +174,35 @@ class CarroController extends Controller
                             ->with('status', $car->modelo . ' Excluído!');
         }
     }
+
+    public function graf(){
+
+        $sql = "select m.nome as marca, count(c.id) as num from carros c
+                inner join marcas m
+                on c.marca_id = m.id
+                group by m.nome";
+
+                $dados = DB::select($sql);
+
+        return view('admin.carros_graf', ['dados'=>$dados]);
+    }
+
+    public function destaque($id){
+        $car = Carro::find($id);
+
+        if ($car->destaque == "X"){
+            $destaque = "";
+        }else {
+            $destaque = "X";
+        }
+
+        $dest = DB::update('update carros set destaque = ? where id = ?', [$destaque, $id]);
+
+        if ($dest){
+            return redirect()->route('carros.index')
+            ->with('status', ($destaque == "X" ? $car->modelo. ' Destacado' : 
+            $car->modelo. ' Retirado de Destaque'));
+        }
+    }
+
 }

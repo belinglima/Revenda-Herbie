@@ -123,7 +123,7 @@ return [
                 [
                     'text' => 'Marcas',
                     'icon' => 'list-ul',
-                    'url'  => '#',
+                    'url'  => 'admin/marcas',
                 ], 
                 [
                     'text' => 'Cadastrar Usuarios',
@@ -140,7 +140,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Veículos por Marca',
-                    'url'  => '#',
+                    'url'  => 'admin/carrosgraf',
                 ],    
                 [
                     'text' => 'Novos Clientes',
@@ -181,11 +181,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Clientes',
-                    'url'  => '#',
+                    'url'  => 'admin/clientes',
                 ],    
                 [
                     'text' => 'Propostas',
-                    'url'  => '#',
+                    'url'  => 'admin/propostas',
                 ],    
             ],    
         ],        

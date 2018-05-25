@@ -26,6 +26,7 @@
     <th> Preço R$ </th>
     <th> Combustível </th>
     <th> Data Cad. </th>
+    <th> * </th>
     <th>Foto </th>
     <th> Ações </th>
   </tr>  
@@ -38,6 +39,7 @@
     <td> {{number_format($c->preco, 2, ',', '.')}} </td>
     <td> {{$c->combustivel}} </td>
     <td> {{date_format($c->created_at, 'd/m/Y')}} </td>
+    <td> {{ $c->destaque }} </td>
     <td>
     @if(Storage::exists($c->foto))
     <img src="{{url('storage/'.$c->foto)}}"
@@ -46,7 +48,7 @@
     
     @else
 
-    <img src="{{url('storage/fotos/sem_foto.jpg')}}"
+    <img src="{{url('storage/fotos/sem_foto.png')}}"
          style="width: 80px; height: 50px;" 
          alt="Foto de Carro"/>
 
@@ -54,6 +56,7 @@
   </td>
 
     <td> 
+    
         <a href="{{route('carros.edit', $c->id)}}" 
             class="btn btn-warning btn-sm" title="Alterar"
             role="button"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
@@ -65,7 +68,10 @@
                {{csrf_field()}}
               <button type="submit" title="Excluir"
                       class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-        </form>  
+        </form>  &nbsp;&nbsp;
+        <a href="{{route('carros.destaque', $c->id)}}" 
+            class="btn btn-success btn-sm" title="Destacar"
+            role="button"><i class="fa fa-star"></i></a>
     </td>
   </tr>
   @if ($loop->last)
