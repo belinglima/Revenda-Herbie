@@ -11,14 +11,15 @@ class AvisoPromocional extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $inputs;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($inputs)
     {
-        //
+        $this->inputs = $inputs;
     }
 
     /**
@@ -28,6 +29,8 @@ class AvisoPromocional extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.promocao');
+        return $this->view('admin.proposta');
+
+
     }
 }

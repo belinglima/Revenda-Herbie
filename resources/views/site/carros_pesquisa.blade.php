@@ -1,78 +1,41 @@
-@extends ('layouts.comercial.master')
+@extends('site.modelo')
 
-@section('content')
+@section('conteudo')
 
-    <div class="w3-main" style="margin-left:340px;margin-right:40px">
-
-        <!-- Header -->
-        <div class="w3-container" style="margin-top:80px" id="showcase">
-            <h1 class="w3-jumbo"><b>Encontre seu carro novo</b></h1>
-            <h1 class="w3-xxxlarge w3-text-red"><b>Pesquisar</b></h1>
-            <hr style="width:50px;border:5px solid red" class="w3-round">
-        </div>
-
-        <div class="w3-container" id="contact" style="margin-top:75px">
-
-
-            <form method="post" action="{{route('carros.filtroscom')}}">
-                {{ csrf_field() }}
-                <div class="w3-section">
-                    <label for="modelo">Modelo do Veículo</label>
-                    <input class="w3-input w3-border" type="text" name="modelo" id="modelo">
-                </div>
-                <div class="w3-section">
-                    <label for="precomax">Preço Máximo R$:</label>
-                    <input class="w3-input w3-border" type="text" name="precomax" id="precomax">
-                </div>
-                <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Buscar</button>
-            </form>
-        </div>
-
-        <!-- Photo grid -->
-        <div class="row">
-            @if (count($carros)==0)
+<div class="container">
+@if (session('status'))
+    <div class="alert alert-success">
+      {{ session('status') }}
+    </div>  
+@endif
+@if (count($carros)==0)
                 <div class="alert alert-danger">
-                    Não há carros com os filtros informados...
+                    Não há carros Cadastrados com esse nome ou sendo exibidos...
                 </div>
             @endif
-        @foreach($carros as $carro)
+<div class="row">
 
-                @php
-                    if(file_exists(public_path('fotos/'.$carro->id.'.jpg'))){
-                       $foto = '../fotos/'.$carro->id.'.jpg';
-                    } else {
-                       $foto = '../fotos/sem_foto.jpg';
-                    }
-                @endphp
-
-
-                    <div class='col-sm-4' style="padding-bottom: 2vw;">
-                        {!!"<img src='$foto' style='width:100%; height: 18vw;' >"!!}
-                        <div class="w3-row">
-                            <ul class="w3-ul w3-light-grey w3-center">
-                                <li class="w3-red w3-xlarge w3-padding-32">{{$carro->modelo}}</li>
-                                <li class="w3-padding-16">{{$carro->ano}}</li>
-                                <li class="w3-padding-16">{{$carro->marca->nome}}</li>
-                                <li class="w3-padding-16">{{$carro->combustivel}}</li>
-                                <li class="w3-padding-16">
-                                    <h2>{{number_format($carro->preco, '2', ',', '.')}}</h2>
-                                </li>
-                                <li class="w3-light-grey w3-padding-24">
-                                    <a href="{{route('propostas.show', $carro->id)}}" class="w3-button w3-red w3-padding-large w3-hover-black">Proposta</a>
-                                </li>
-                            </ul>
-                        </div>
+@foreach($carros as $c)
+        <div class="col col-sm-4">
+            <div class="card border-light bg-light">
+                <div class="card-header text-center" style="font-weight: bold;">{{ $c->modelo }}</div>
+                    <div class="card-body">
+                        @if(Storage::exists($c->foto))
+                            <img src="{{url('storage/'.$c->foto)}}"
+                            style="width: 100%; height: 150px;" 
+                            alt="Foto de Carro"/>
+                        @else
+                            <img src="{{url('storage/fotos/sem_foto.png')}}"
+                            style="width: 100%; height: 150px;" 
+                            alt="Foto de Carro"/>
+                        @endif
+                        <p class="text-center">Valor R$: {{number_format($c->preco, 2, ',', '.')}} </p>
+                        <a href="{{route('proposta.show', $c->id)}}" type="button" class="btn btn-block btn-dark">Proposta</a>
                     </div>
-
-            @endforeach
-
-
+                </div>
         </div>
 
-
-    {{ $carros->links() }}
-
-        <!-- End page content -->
-    </div>
-
+@endforeach
+</div>
+</div>
 @endsection

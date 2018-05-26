@@ -10,6 +10,7 @@ class EmailController extends Controller
 {
     public function enviaEmail(){
         $destinatario = "belinglima@gmail.com";
+        
         Mail::to($destinatario)->send(new AvisoPromocional());
     }
 }

@@ -53,8 +53,9 @@
         <a class="nav-link" href="#SobreNós">Sobre Nós</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Buscar veiculos .." aria-label="Search">
+    <form method="post" class="form-inline my-2 my-lg-0" action="{{route('carros.filtroscom')}}">
+      {{ csrf_field() }}
+      <input class="form-control mr-sm-2" type="text" name="modelo" id="modelo" placeholder="Buscar veiculos ..">
       <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Buscar</button>
     </form>
   </div>

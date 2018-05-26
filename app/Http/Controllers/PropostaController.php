@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 Use App\Carro;
 Use App\Marca;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AvisoPromocional;
 
 
 class PropostaController extends Controller
@@ -66,5 +68,24 @@ class PropostaController extends Controller
         return view('admin.resposta');
     }
 
+    public function enviaEmail(Request $request){
+
+            // Validação dos campos
+    $inputs = $request->validate([
+        'email' => 'required',
+        'message' => 'required|min:5'
+    ]);
+
+    $proposta = Proposta::find($email);
+
+    // Envio do email utilizando o Mailer
+    Mail::to('belinglima@gmail.com', 'Proosta de Veiculo')
+        ->send(new AvisoPromocional($inputs));
+
+    // Mensagem de sucesso para ser exibida
+    Session::flash('success', 'Email enviado com sucesso!');
+    return redirect()->route('admin.propostas_list', ['proposta' => $email]);
+
+    }
 
 }

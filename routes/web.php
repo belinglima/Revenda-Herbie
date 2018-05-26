@@ -22,9 +22,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('site', 'ListaController');
 Route::resource('proposta', 'PropostaController');
-
-Route::get('promocao', 'EmailController@enviaEmail');
-
 Route::get('admin/propostas', 'PropostaController@index');
 
 Route::get('admin/resposta', 'PropostaController@responder')->name('propostas.resposta');
+
+Route::post('carrosfiltroscom', 'CarroComercialController@filtros')
+    ->name('carros.filtroscom');
+
+Route::post('admin/resposta', 'PropostaController@enviaEmail')->name('resposta');
