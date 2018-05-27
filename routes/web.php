@@ -12,6 +12,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'], function() {
    ->name('carros.graf');
    Route::get('carrosdestaque/{id}', 'CarroController@destaque')
    ->name('carros.destaque');
+   Route::resource('clientes', 'UUserController');
 });
 
 //Route::get('/admin', function() {
@@ -30,3 +31,5 @@ Route::post('carrosfiltroscom', 'CarroComercialController@filtros')
     ->name('carros.filtroscom');
 
 Route::post('admin/resposta', 'PropostaController@enviaEmail')->name('resposta');
+
+Route::resource('admin/marcas', 'MarcaController');

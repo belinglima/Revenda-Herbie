@@ -13,7 +13,7 @@ class CreatePropostaTable extends Migration
      */
     public function up()
     {
-        Schema::create('proposta', function (Blueprint $table) {
+        Schema::create('propostas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome_cliente', 100);
             $table->string('email', 100);
@@ -31,6 +31,6 @@ class CreatePropostaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proposta');
+        Schema::dropIfExists('propostas');
     }
 }

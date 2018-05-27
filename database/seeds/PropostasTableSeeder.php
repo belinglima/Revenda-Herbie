@@ -11,7 +11,7 @@ class PropostasTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('proposta')->insert([
+        DB::table('propostas')->insert([
             'nome_cliente' => 'Sandro Azul',
             'email' => 'tt@teste.com',
             'telefone' => '9849099922',
