@@ -57,7 +57,7 @@
                     <td>R$: {{number_format($proposta->proposta, '2', ',', '.')}} &nbsp;&nbsp;&nbsp;</td>
                     <td> {{date_format($proposta->created_at, 'd/m/Y')}} </td>
                     <td>
-                        <a href="{{route('propostas.resposta', $proposta->email)}}"
+                        <a href="{{route('propostas.resposta', $proposta->id)}}"
                            class="btn btn-info"
                            role="button">Responder</a> &nbsp;&nbsp;
                     </td>

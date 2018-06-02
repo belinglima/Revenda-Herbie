@@ -9,6 +9,7 @@ Use App\Carro;
 Use App\Marca;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AvisoPromocional;
+use Illuminate\Support\Facades\DB;
 
 
 class PropostaController extends Controller
@@ -63,29 +64,44 @@ class PropostaController extends Controller
         return view('site.proposta', ['carro' => Carro::find($id)]);
     }
 
-    public function responder()
+    public function responder($id)
     {
-        return view('admin.resposta');
+        $proposta = Proposta::find($id);
+        $carro = Carro::find($proposta->carro_id);
+        return view("admin.resposta", ["proposta" => $proposta, 
+                                                "carro" => $carro]);
     }
 
-    public function enviaEmail(Request $request){
+    public function enviaEmail(Request $request)
+    {
+         
+        $dados = $request->all();
+        $proposta = Proposta::find($dados["id"]);
+        $carro = Carro::find($proposta->carro_id);
+        $resposta = $request["mensagem"];
+        Mail::send("Mail.respostaproposta", ["proposta" => $proposta,
+                                              "carro" => $carro,
+                                              "mensagem" => $resposta], 
+                                              function ($message)use ($proposta) {
+            $message->from("contato.revenda.herbie@gmail.com");
+            $message->to($proposta->email);
+            $message->subject("Resposta proposta #".$proposta->id);
+        });
 
-            // Validação dos campos
-    $inputs = $request->validate([
-        'email' => 'required',
-        'message' => 'required|min:5'
-    ]);
+        return redirect("admin/propostas");
 
-    $proposta = Proposta::find($email);
+    }
 
-    // Envio do email utilizando o Mailer
-    Mail::to('belinglima@gmail.com', 'Proosta de Veiculo')
-        ->send(new AvisoPromocional($inputs));
+    public function graf(){
 
-    // Mensagem de sucesso para ser exibida
-    Session::flash('success', 'Email enviado com sucesso!');
-    return redirect()->route('admin.propostas_list', ['proposta' => $email]);
+        $sql = "select m.nome as marca, count(c.id) as num from carros c
+                inner join marcas m
+                on c.marca_id = m.id
+                group by m.nome";
 
+                $dados = DB::select($sql);
+
+        return view('admin.proposta_graf', ['dados' => $dados]);
     }
 
 }

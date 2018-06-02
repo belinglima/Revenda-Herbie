@@ -4,7 +4,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-class AvisoPromocional extends Mailable
+class RespostaProposta extends Mailable
 {
     use Queueable, SerializesModels;
     /**
@@ -23,6 +23,6 @@ class AvisoPromocional extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.promocao');
+        return $this->view('mail.repostaProposta', $mensagem);
     }
 }

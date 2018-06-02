@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proposta extends Model
 {
-    protected $fillable = array('nome_cliente', 'email', 'telefone', 'proposta', 'carro_id');
+    protected $fillable = array('id','nome_cliente', 'email', 'telefone', 'proposta', 'carro_id');
 
     public function carro() {
         return $this->belongsTo('App\Carro');

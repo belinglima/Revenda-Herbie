@@ -141,14 +141,10 @@ return [
                 [
                     'text' => 'Veículos por Marca',
                     'url'  => 'admin/carrosgraf',
-                ],    
-                [
-                    'text' => 'Novos Clientes',
-                    'url'  => '#',
-                ],    
+                ],      
                 [
                     'text' => 'Propostas Mensais',
-                    'url'  => '#',
+                    'url'  => 'admin/propostagraf',
                 ],    
             ],    
         ],
