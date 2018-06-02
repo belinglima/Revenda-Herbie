@@ -21,13 +21,13 @@
           ['Propostas', 'Nº Propostas'],
 
       @foreach ($dados as $linha)
-        {!! "['$linha->proposta', $linha->num], " !!}
+        {!! "['$linha->mes', $linha->num], " !!}
       @endforeach
 
         ]);
 
         var options = {
-          title: 'Nº de Propostas por Veiculos',
+          title: 'Nº de Propostas por Mês',
           is3D: true,
         };
 

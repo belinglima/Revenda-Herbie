@@ -28,7 +28,7 @@ class PropostaController extends Controller
      */
     public function index()
     {   
-        $propostas = Proposta::orderBy('id', 'desc')->paginate(5);
+        $propostas = Proposta::orderBy('id', 'desc')->paginate(8);
         return view('admin.propostas_list', compact('propostas'));
     }
 
@@ -94,10 +94,10 @@ class PropostaController extends Controller
 
     public function graf(){
 
-        $sql = "select m.nome as marca, count(c.id) as num from carros c
-                inner join marcas m
-                on c.marca_id = m.id
-                group by m.nome";
+        $sql = "select concat(year(created_at), '-', month(created_at)) as mes,  
+        count(*) as num 
+        from propostas 
+        group by concat(year(created_at), '-', month(created_at))";
 
                 $dados = DB::select($sql);
 
